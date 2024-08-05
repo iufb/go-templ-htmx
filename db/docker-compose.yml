@@ -1,0 +1,18 @@
+version: "3.8" # Specify the version of Docker Compose
+
+services:
+  db:
+    image: mysql:latest # Use the latest MySQL image
+    container_name: mysql_container # Optional: give your container a name
+    environment:
+      MYSQL_ROOT_PASSWORD: leejieun # Set the root password
+      MYSQL_DATABASE: go-templ-htmx-db # Create a default database
+      MYSQL_USER: iufb # Create a default user
+      MYSQL_PASSWORD: leejieun # Set the user password
+    ports:
+      - "3306:3306" # Map the MySQL port
+    volumes:
+      - db_data:/var/lib/mysql # Persist the data
+
+volumes:
+  db_data:
