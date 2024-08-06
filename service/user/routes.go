@@ -2,6 +2,7 @@ package user
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -37,8 +38,8 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 	}
 	// check if user exists
 	_, err := h.store.GetUserByEmail(payload.Email)
-	if err != nil {
-		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("User already with email %s exists", payload.Email))
+	if err == nil {
+		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("User  with email %s already exists", payload.Email))
 		return
 	}
 	// validate payload
@@ -47,6 +48,7 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid payload %v", validationErrors))
 		return
 	}
+	log.Println("Validate pass")
 	hashedPass, err := auth.HashPass(payload.Password)
 	if err != nil {
 		utils.WriteError(w, http.StatusInternalServerError, err)
@@ -57,6 +59,8 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		Email:    payload.Email,
 		Password: hashedPass,
 	})
+
+	log.Println("Create pass")
 	if err != nil {
 		utils.WriteError(w, http.StatusInternalServerError, err)
 		return

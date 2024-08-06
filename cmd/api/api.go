@@ -1,20 +1,20 @@
 package api
 
 import (
-	"database/sql"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/iufb/go-templ-htmx/service/user"
+	"gorm.io/gorm"
 )
 
 type APIServer struct {
 	addr string
-	db   *sql.DB
+	db   *gorm.DB
 }
 
-func NewAPIServer(addr string, db *sql.DB) *APIServer {
+func NewAPIServer(addr string, db *gorm.DB) *APIServer {
 	return &APIServer{
 		addr: addr,
 		db:   db,

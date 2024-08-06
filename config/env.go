@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -12,7 +11,8 @@ type Config struct {
 	Port       string
 	DBUser     string
 	DBPassword string
-	DBAddress  string
+	DBHost     string
+	DBPort     string
 	DBName     string
 }
 
@@ -25,7 +25,8 @@ func initConfig() Config {
 		Port:       getEnv("PORT", "3000"),
 		DBUser:     getEnv("DB_USER", "iufb"),
 		DBPassword: getEnv("DB_PASS", "leejieun"),
-		DBAddress:  getEnv("DB_ADDRESS", fmt.Sprintf("%s:%s", getEnv("DB_HOST", "127.0.0.1"), getEnv("DB_PORT", "3306"))),
+		DBHost:     getEnv("DB_HOST", "127.0.0.1"),
+		DBPort:     getEnv("DB_PORT", "3306"),
 		DBName:     getEnv("DB_NAME", "go-templ-htmx-db"),
 	}
 }

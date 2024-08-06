@@ -8,8 +8,8 @@ type UserStore interface {
 	CreateUser(user User) error
 }
 type User struct {
-	ID        int       `json:"id"`
-	Email     string    `json:"email"`
+	ID        int       `json:"id" gorm:"primaryKey"`
+	Email     string    `json:"email" gorm:"unique"`
 	Password  string    `json:"-"`
 	CreatedAt time.Time `json:"createdAt"`
 }
