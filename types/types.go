@@ -2,6 +2,9 @@ package types
 
 import "time"
 
+type Response struct {
+	Message string `json:"message"`
+}
 type UserStore interface {
 	GetUserByEmail(email string) (*User, error)
 	GetUserById(id int) (*User, error)
@@ -13,7 +16,7 @@ type User struct {
 	Password  string    `json:"-"`
 	CreatedAt time.Time `json:"createdAt"`
 }
-type RegisterUserPayload struct {
+type AuthUserPayload struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password"  validate:"required,min=6,max=12"`
 }
